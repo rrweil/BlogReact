@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30804.86
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HW5.1.21BlogReact.Web", "HW5.1.21BlogReact.Web\HW5.1.21BlogReact.Web.csproj", "{CD1761A7-54DE-4F85-B744-865DE1E74A79}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HW5.1.21BlogReact.Data", "HW5.1.21BlogReact.Data\HW5.1.21BlogReact.Data.csproj", "{2C0DC85F-0101-4F02-A53A-F06AC6A09EE1}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CD1761A7-54DE-4F85-B744-865DE1E74A79}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CD1761A7-54DE-4F85-B744-865DE1E74A79}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CD1761A7-54DE-4F85-B744-865DE1E74A79}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CD1761A7-54DE-4F85-B744-865DE1E74A79}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2C0DC85F-0101-4F02-A53A-F06AC6A09EE1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2C0DC85F-0101-4F02-A53A-F06AC6A09EE1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2C0DC85F-0101-4F02-A53A-F06AC6A09EE1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2C0DC85F-0101-4F02-A53A-F06AC6A09EE1}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {18DFE142-73A4-4FF2-A600-96FABA52722D}
+	EndGlobalSection
+EndGlobal
