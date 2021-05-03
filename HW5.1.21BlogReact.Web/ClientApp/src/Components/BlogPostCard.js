@@ -1,17 +1,34 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
-const BlogPostCard = ({post}) => {
-    const {title, content, postDate} = post;
+
+const BlogPostCard = ({ post }) => {
+
+    const generateContent = () => {
+        if (content.length < 200){
+            return content;
+        } else {
+            return `${content.substring(0, 200)}...`
+        }
+    }
+
+    const { title, content, postDate, id, comments} = post;
     return (
         <>
             <div className="card mb-4">
                 <div className="card-body">
                     <h2 className="card-title">
-                        <a href="/home/viewpost?id=@bp.Id">{title}</a>
+                        <Link to ={`/postpage/${id}`}>
+                            {title}
+                        </Link>
                     </h2>
-                    <p className="card-text">BLOG TEXT CHOPPED TO 200 CHARACTERS {content}</p>
-                    <div className="mb-3"><small>XXX comment(s)</small></div>
-                    <a href="/home/viewpost?id=@bp.Id" className="btn btn-primary">Read More LINKED &rarr;</a>
+                    <p className="card-text">
+                    {generateContent()}
+                    </p>
+                    <div className="mb-3"><small>{comments.length} comment(s)</small></div>
+                    <Link to ={`/postpage/${id}`}>
+                    <button className="btn btn-primary">Read More &rarr;</button>
+                    </Link>
                 </div>
                 <div className="card-footer text-muted">
                     Posted on {postDate} by

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -24,7 +25,26 @@ namespace HW5._1._21BlogReact.Data
         public List<Post> GetPosts()
         {
             using var ctx = new BlogDataContext(_connectionString);
-            return ctx.Posts.ToList();
+            return ctx.Posts.OrderByDescending(p => p.DatePosted).Include(p => p.Comments).ToList();
+        }
+
+        public Post GetPostById (int id)
+        {
+            using var ctx = new BlogDataContext(_connectionString);
+            return ctx.Posts.Include(p => p.Comments.OrderByDescending(c => c.CommentDate)).FirstOrDefault(p => p.Id == id);
+        }
+
+        public void AddComment (Comment comment)
+        {
+            using var ctx = new BlogDataContext(_connectionString);
+            ctx.Comments.Add(comment);
+            ctx.SaveChanges();
+        }
+
+        public int GetMostRecentPostId()
+        {
+            using var ctx = new BlogDataContext(_connectionString);
+            return ctx.Posts.OrderByDescending(p => p.DatePosted).Select(p => p.Id).FirstOrDefault();
         }
     }
 }

@@ -38,5 +38,30 @@ namespace HW5._1._21BlogReact.Web.Controllers
             return repo.GetPosts();
         }
 
+        [HttpGet]
+        [Route("getPostById")]
+        public Post GetPostById (int id)
+        {
+            var repo = new BlogRepository(_connectionStriong);
+            return repo.GetPostById(id);
+        }
+
+        [HttpPost]
+        [Route("addComment")]
+        public void AddComment(Comment comment)
+        {
+            var repo = new BlogRepository(_connectionStriong);
+            comment.CommentDate = DateTime.Now;
+            repo.AddComment(comment);
+        }
+
+        [HttpGet]
+        [Route("getMostRecentPostId")]
+        public int GetMostRecentPostId()
+        {
+            var repo = new BlogRepository(_connectionStriong);
+            return repo.GetMostRecentPostId();
+        }
+
     }
 }

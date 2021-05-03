@@ -1,7 +1,15 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
+import axios from 'axios';
 
 const Layout = (props) => {
+    const history = useHistory();
+
+    const goToMostRecentPost = async () => {
+        const { data } = await axios.get('/api/blog/getMostRecentPostId');
+        history.push(`/postpage/${data}`);
+    }
+
     return (
         <div>
             <header>
@@ -20,9 +28,9 @@ const Layout = (props) => {
                                     </Link>
                                 </li>
                                 <li className="nav-item">
-                                    <Link to='/addperson' className='nav-link text-light'>
+                                    <button onClick={goToMostRecentPost} className='nav-link text-light btn btn-link'>
                                         Most Recent
-                                    </Link>
+                                    </button>
                                 </li>
                                 <li className="nav-item">
                                     <Link to='/admin' className='nav-link text-light'>

@@ -3,6 +3,7 @@ import { Route } from 'react-router';
 import Layout from './Layout';
 import Admin from './Pages/Admin';
 import Home from './Pages/Home';
+import PostPage from './Pages/PostPage';
 
 
 export default class App extends React.Component {
@@ -11,6 +12,7 @@ export default class App extends React.Component {
             <Layout>
                 <Route exact path='/' component={Home} />
                 <Route exact path='/admin' component={Admin} />
+                <Route exact path='/postpage/:id' component={PostPage} />
             </Layout>
         );
     }
