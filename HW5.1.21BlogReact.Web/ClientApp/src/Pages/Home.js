@@ -1,68 +1,90 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useParams, Link } from 'react-router-dom';
 import BlogPostCard from '../Components/BlogPostCard';
 import { post } from 'jquery';
 
 const Home = () => {
     const [posts, setPosts] = useState([]);
-    const history = useHistory();
-
+    const [pageCounter, setPageCounter] = useState({ postsPerPage: 3, totalPages: '', lastPage: '' });
+    let { pageNum } = useParams();
+    const { postsPerPage, totalPages, lastPage } = pageCounter;
 
     useEffect(() => {
         const getPosts = async () => {
-            const {data} = await axios.get('/api/blog/getposts');
+            const { data } = await axios.get('/api/blog/getposts');
             setPosts(data);
+            const totalPages = data.length / postsPerPage;
+            setPageCounter({ ...pageCounter, totalPages, lastPage: totalPages % 1 == 0 ? totalPages - 1 : Math.floor(totalPages) });
         }
         getPosts();
     }, []);
 
+    const generatePageNumberButtons = () => {
+        if (pageNum == 0 && totalPages > 1) {
+            return (
+                <ul className="pagination justify-content-center mb-4">
+                    <Link to={`/page/${+pageNum + 1}`}>
+                        <li className="page-item"><button className="page-link" >← Older</button></li>
+                    </Link>
+                </ul>
+            )
+        } else if (pageNum == 0) {
+            return (<></>);
+        } else if (pageNum == lastPage) {
+            return (
+                <ul className="pagination justify-content-center mb-4">
+                    <Link to={`/page/${+pageNum - 1}`}>
+                        <li className="page-item"><button className="page-link">Newer →</button></li>
+                    </Link>
+                </ul>
+            )
+        } else {
+            return (
+                <ul className="pagination justify-content-center mb-4">
+                    <Link to={`/page/${+pageNum + 1}`}>
+                        <li className="page-item"><button className="page-link" >← Older</button></li>
+                    </Link>
+                    <Link to={`/page/${+pageNum - 1}`}>
+                        <li className="page-item"><button className="page-link">Newer →</button></li>
+                    </Link>
+                </ul>
+            )
+        }
+    }
 
+    const generateBlogCards = () => {
 
-    // const onTextChange = e => {
-    //     const copy = { ...post };
-    //     copy[e.target.name] = e.target.value;
-    //     setPost(copy);
-    // }
+        var startingPost = pageNum * 3;
+        var filteredPosts = posts.slice(startingPost, startingPost + 3);
 
-    // const onSubmitPostClick = async () => {
-    //     await axios.post('/api/blog/addpost', post);
-    //     history.push('/');
-    // }
+        return (
+            filteredPosts.map(post => {
+                return (
+                    <BlogPostCard
+                        post={post}
+                        key={post.id}
+                    />
+                )
+            })
+        );
+    }
 
-    const { title, content } = post;
     return (
-        <>
-            <div className="container pb-3">
-                <div className="container">
-                    <div className="row">
-                        <div className="col-md-8">
-                            <h1 className="my-4">
-                                My Blog
+        <div className="container pb-3">
+            <div className="container">
+                <div className="row">
+                    <div className="col-md-8">
+                        <h1 className="my-4">
+                            My Blog
                         <small className="ml-2">Subheading goes here</small>
-                            </h1>
-
-                            {posts.map(post => {
-                                return (
-                                    <BlogPostCard
-                                        post={post}
-                                        key={post.id}
-
-                                    />
-                                )
-                            })
-                            }
-                            <ul className="pagination justify-content-center mb-4">
-                                <li className="page-item">
-                                    <a className="page-link" href="/home/index?page=2">&larr; Older</a>
-                                </li>
-                            </ul>
-
-                        </div>
+                        </h1>
+                        {generateBlogCards()}
+                        {generatePageNumberButtons()}
                     </div>
                 </div>
             </div>
-        </>
+        </div>
 
     );
 

@@ -28,6 +28,12 @@ namespace HW5._1._21BlogReact.Data
             return ctx.Posts.OrderByDescending(p => p.DatePosted).Include(p => p.Comments).ToList();
         }
 
+        public int GetTotalPostCount()
+        {
+            using var ctx = new BlogDataContext(_connectionString);
+            return ctx.Posts.Count();
+        }
+
         public Post GetPostById (int id)
         {
             using var ctx = new BlogDataContext(_connectionString);

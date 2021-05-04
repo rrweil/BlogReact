@@ -19,8 +19,8 @@ const Admin = () => {
     }
 
     const {title, content} = post;
+
     return (
-        <>
                     <div className="row ">
                         <div className="col-md-8 offset-md-2 jumbotron mt-4 pt-3 pb-3">
                             <h2>Add New Post</h2>
@@ -35,7 +35,6 @@ const Admin = () => {
                             <button className="btn btn-primary btn-block " onClick={onSubmitPostClick}>Submit Post!</button>
                         </div>
                     </div>
-        </>
 
     );
 
