@@ -19,38 +19,28 @@ const Home = () => {
         getPosts();
     }, []);
 
-    const generatePageNumberButtons = () => {
-        if (pageNum == 0 && totalPages > 1) {
+    const generateOlderButton = () => {
+        if (totalPages > 1 && pageNum != lastPage) {
             return (
-                <ul className="pagination justify-content-center mb-4">
-                    <Link to={`/page/${+pageNum + 1}`}>
-                        <li className="page-item"><button className="page-link" >← Older</button></li>
-                    </Link>
-                </ul>
-            )
-        } else if (pageNum == 0) {
-            return (<></>);
-        } else if (pageNum == lastPage) {
-            return (
-                <ul className="pagination justify-content-center mb-4">
-                    <Link to={`/page/${+pageNum - 1}`}>
-                        <li className="page-item"><button className="page-link">Newer →</button></li>
-                    </Link>
-                </ul>
-            )
-        } else {
-            return (
-                <ul className="pagination justify-content-center mb-4">
-                    <Link to={`/page/${+pageNum + 1}`}>
-                        <li className="page-item"><button className="page-link" >← Older</button></li>
-                    </Link>
-                    <Link to={`/page/${+pageNum - 1}`}>
-                        <li className="page-item"><button className="page-link">Newer →</button></li>
-                    </Link>
-                </ul>
+                <Link to={`/page/${+pageNum + 1}`}>
+                    <li className="page-item"><button className="page-link" >← Older</button></li>
+                </Link>
             )
         }
+
     }
+
+    const generateNewerButton = () => {
+        if (pageNum != 0 && totalPages !=0) {
+            return (
+                <Link to={`/page/${+pageNum - 1}`}>
+                    <li className="page-item"><button className="page-link">Newer →</button></li>
+                </Link>
+            );
+        }
+
+    }
+
 
     const generateBlogCards = () => {
 
@@ -79,7 +69,10 @@ const Home = () => {
                         <small className="ml-2">Subheading goes here</small>
                         </h1>
                         {generateBlogCards()}
-                        {generatePageNumberButtons()}
+                        <ul className="pagination justify-content-center mb-4">
+                            {generateOlderButton()}
+                            {generateNewerButton()}
+                        </ul>
                     </div>
                 </div>
             </div>
