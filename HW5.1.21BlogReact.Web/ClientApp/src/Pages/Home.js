@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useHistory, useParams, Link } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import BlogPostCard from '../Components/BlogPostCard';
-import { post } from 'jquery';
 
 const Home = () => {
     const [posts, setPosts] = useState([]);
@@ -55,8 +54,8 @@ const Home = () => {
 
     const generateBlogCards = () => {
 
-        var startingPost = pageNum * 3;
-        var filteredPosts = posts.slice(startingPost, startingPost + 3);
+        var startingPost = pageNum * postsPerPage;
+        var filteredPosts = posts.slice(startingPost, startingPost + postsPerPage);
 
         return (
             filteredPosts.map(post => {

@@ -3,23 +3,26 @@ import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import { format } from 'date-fns';
 import Comment from '../Components/Comment';
+import Cookies from 'js-cookie';
 
 const PostPage = () => {
 
-    const [post, setPost] = useState({ id: '', title: '', content: '', datePosted: '', comments: [] });
+    const [post, setPost] = useState({ id: '', title: '', content: '', datePosted: null, comments: [] });
     const [comment, setComment] = useState({ commentorName: '', commentText: '', postId: '' });
     const [newComment, setNewComment] = useState(false);
     const params = useParams();
 
 
     useEffect(() => {
-        const getPostById = async () => {
-            const { id } = params;
-            const { data } = await axios.get(`/api/blog/getpostbyid?id=${id}`);
-            setPost(data);
-        }
         getPostById();
     }, []);
+
+    const getPostById = async () => {
+        const { id } = params;
+        const { data } = await axios.get(`/api/blog/getpostbyid?id=${id}`);
+        setPost(data);
+        setComment({...comment, commentorName: Cookies.get("visitor-name")});
+    }
 
     const OnCommentTextChange = e => {
         const copy = { ...comment };
@@ -27,14 +30,8 @@ const PostPage = () => {
         setComment(copy);
     }
 
-
     useEffect(() => {
         setNewComment(false);
-        const getPostById = async () => {
-            const { id } = params;
-            const { data } = await axios.get(`/api/blog/getpostbyid?id=${id}`);
-            setPost(data);
-        }
         getPostById();
     }, [newComment]);
 
@@ -44,19 +41,15 @@ const PostPage = () => {
         setComment({ commentorName: '', commentText: '', postId: '' });
     }
 
-
     const { title, content, datePosted, comments } = post;
     const { commentorName, commentText } = comment;
-    var date = new Date(datePosted).toLocaleString();
     return (
         <div className="row">
             <div className="col-lg-8">
                 <h1 className="mt-4">{title}</h1>
                 <p className="lead">by Anonymous</p>
                 <hr />
-                <p>Posted on {date}</p>
-                {/* <p>Posted on {format(new Date(datePosted), 'yyyy')}</p> */}
-
+                <p>Posted on {format(new Date (datePosted), 'cccc MMMM Lo, yyyy')}</p>
                 <hr />
                 <div className="display-field">
                     {content.split("\n").map(function (item) {

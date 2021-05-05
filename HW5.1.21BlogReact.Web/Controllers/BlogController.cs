@@ -53,6 +53,8 @@ namespace HW5._1._21BlogReact.Web.Controllers
             var repo = new BlogRepository(_connectionStriong);
             comment.CommentDate = DateTime.Now;
             repo.AddComment(comment);
+            Response.Cookies.Append("visitor-name", comment.CommentorName);
+
         }
 
         [HttpGet]

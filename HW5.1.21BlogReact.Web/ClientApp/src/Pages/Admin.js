@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import {useHistory} from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 const Admin = () => {
 
@@ -18,23 +18,23 @@ const Admin = () => {
         history.push('/');
     }
 
-    const {title, content} = post;
+    const { title, content } = post;
 
     return (
-                    <div className="row ">
-                        <div className="col-md-8 offset-md-2 jumbotron mt-4 pt-3 pb-3">
-                            <h2>Add New Post</h2>
-                            <input type="text" className="form-control" placeholder="Title" name="title"
-                                value={title} onChange={onTextChange}
-                            />
-                            <br />
-                            <textarea name="content" placeholder="Enter content here..."
-                                className="form-control" rows="20" value={content} onChange={onTextChange}>
-                            </textarea>
-                            <br />
-                            <button className="btn btn-primary btn-block " onClick={onSubmitPostClick}>Submit Post!</button>
-                        </div>
-                    </div>
+        <div className="row ">
+            <div className="col-md-8 offset-md-2 jumbotron mt-4 pt-3 pb-3">
+                <h2>Add New Post</h2>
+                <input type="text" className="form-control" placeholder="Title" name="title"
+                    value={title} onChange={onTextChange}
+                />
+                <br />
+                <textarea name="content" placeholder="Enter content here..."
+                    className="form-control" rows="20" value={content} onChange={onTextChange}>
+                </textarea>
+                <br />
+                <button className="btn btn-primary btn-block " onClick={onSubmitPostClick}>Submit Post!</button>
+            </div>
+        </div>
 
     );
 

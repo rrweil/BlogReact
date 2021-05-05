@@ -37,7 +37,7 @@ namespace HW5._1._21BlogReact.Data
         public Post GetPostById (int id)
         {
             using var ctx = new BlogDataContext(_connectionString);
-            return ctx.Posts.Include(p => p.Comments.OrderByDescending(c => c.CommentDate)).FirstOrDefault(p => p.Id == id);
+            return ctx.Posts.Include(p => p.Comments).FirstOrDefault(p => p.Id == id);
         }
 
         public void AddComment (Comment comment)
